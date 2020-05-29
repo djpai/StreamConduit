@@ -18,17 +18,17 @@ namespace CoreUtils
         CancellationTokenSource mCancelWrite;
         int mWOffset;
         int mWCount;
-        public delegate Task ConduitWriteFuncAsync(Stream WriteStream, int FirstBufferSize);
+        public delegate Task ConduitFuncAsync(Stream stream, int FirstBufferSize);
 
-        public StreamConduit(Func<Stream, Task> pConduitWriteActionAsync) : this(new ConduitWriteFuncAsync((writeStream, bufferSize) => pConduitWriteActionAsync(writeStream)))
+        public StreamConduit(Func<Stream, Task> pConduitWriteActionAsync) : this(new ConduitFuncAsync((stream, bufferSize) => pConduitWriteActionAsync(stream)))
         {
         }
 
-        public StreamConduit(Func<Stream, int, Task> pConduitWriteActionAsync) : this(new ConduitWriteFuncAsync(pConduitWriteActionAsync))
+        public StreamConduit(Func<Stream, int, Task> pConduitWriteActionAsync) : this(new ConduitFuncAsync(pConduitWriteActionAsync))
         {
         }
 
-        public StreamConduit(ConduitWriteFuncAsync pConduitWriteActionAsync)
+        public StreamConduit(ConduitFuncAsync pConduitWriteActionAsync)
         {
 
             mQueuedLock = new QueuedLock();
@@ -37,12 +37,12 @@ namespace CoreUtils
             mWriteWait = new AutoResetEvent(false);
             mCompleteWait = new ManualResetEventSlim(true);
 
-            mConduitAction = async (thisStream, bufferSize) =>
+            mConduitAction = async (stream, bufferSize) =>
             {
                 try
                 {
                     mCompleteWait.Reset();
-                    await pConduitWriteActionAsync(thisStream, bufferSize);
+                    await pConduitWriteActionAsync(stream, bufferSize);
                 }
                 catch (Exception e)
                 {
