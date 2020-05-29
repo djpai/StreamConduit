@@ -28,7 +28,7 @@ e.g.  Takes FTP download to write-stream and converts it into read-stream.
 
  e.g.  Takes DataLake upload read-stream and converts it into write-stream for use.
  
-            DataLakeFileClient fc = await FileClient.CreateFileAsync("myfile.txt").ConfigureAwait(false);
+            DataLakeFileClient fc = await FileClient.CreateFileAsync("myfile.txt");
 
             Func<Stream, int, Task> MyProcess = async (stream) =>
             {
