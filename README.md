@@ -30,7 +30,7 @@ e.g.  FTP download to write-stream converted into read-stream.
  
             DataLakeFileClient fc = await FileClient.CreateFileAsync("myfile.txt");
 
-            Func<Stream, int, Task> MyProcess = async (stream) =>
+            Func<Stream, Task> MyProcess = async (stream) =>
             {
                 await fc.UploadAsync(stream, true); 
             };
