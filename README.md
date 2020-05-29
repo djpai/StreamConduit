@@ -3,12 +3,12 @@ Change direction of stream. Read from a write stream or write to a read stream.
 
 e.g.  FTP download to write-stream converted into read-stream.
 
-            Func<Stream, Task> MyProcess = async (stream) =>
+            Func<Stream, Task> MyProcess = async (writestream) =>
             {
                 using (var sftp = new SftpClient("ftpServerName.com", 22, "ftpUserName", "password"))
                 {
                     sftp.Connect();
-                    await Task.Factory.FromAsync(sftp.BeginDownloadFile(remoteFile, stream), sftp.EndDownloadFile);
+                    await Task.Factory.FromAsync(sftp.BeginDownloadFile(remoteFile, writestream), sftp.EndDownloadFile);
                 }
             };
 
@@ -30,9 +30,9 @@ e.g.  FTP download to write-stream converted into read-stream.
  
             DataLakeFileClient fc = await FileClient.CreateFileAsync("myfile.txt");
 
-            Func<Stream, Task> MyProcess = async (stream) =>
+            Func<Stream, Task> MyProcess = async (readstream) =>
             {
-                await fc.UploadAsync(stream, true); 
+                await fc.UploadAsync(readstream, true); 
             };
 
             //Executes MyProcess on first write.
