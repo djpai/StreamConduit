@@ -1,2 +1,2 @@
 # StreamConduit
-Change direction of stream.  From Read to Write or Write to Read
+Change direction of stream.  Read from a write stream or write to a read stream.
