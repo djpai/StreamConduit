@@ -1,4 +1,4 @@
-# StreamConduit C# Core 2.0
+# StreamConduit C# .Net Core 2.0
 Change direction of stream. Read from a write stream or write to a read stream.
 
 e.g.  Takes FTP download to write-stream and converts it into read-stream.
