@@ -1,7 +1,7 @@
 # StreamConduit C# .Net Core 2.0
 Change direction of stream. Read from a write stream or write to a read stream.
 
-e.g.  FTP download to write-stream converted into read-stream.
+e.g.  FTP only allowing download to write-stream converted into read-stream.
 
             Func<Stream, Task> MyProcess = async (writeStream) =>
             {
@@ -26,7 +26,7 @@ e.g.  FTP download to write-stream converted into read-stream.
             }
             
 
- e.g.  DataLake upload to read-stream converted into write-stream for use.
+ e.g.  DataLake only allowing upload from read-stream converted into write-stream for use.
  
             DataLakeFileClient fc = await FileClient.CreateFileAsync("myfile.txt");
 
