@@ -7,7 +7,6 @@ namespace CoreUtils
 {
     public class StreamConduit : Stream, IDisposable
     {
-        //Queue<byte> mQ;
         byte[] mWBuff = null;
         Func<Stream, int, Task> mConduitAction;
         ManualResetEventSlim mReadWait;
@@ -30,7 +29,6 @@ namespace CoreUtils
 
         public StreamConduit(ConduitFuncAsync pConduitWriteActionAsync)
         {
-
             mQueuedLock = new QueuedLock();
             mCancelWrite = new CancellationTokenSource();
             mReadWait = new ManualResetEventSlim(false);
@@ -56,7 +54,6 @@ namespace CoreUtils
                 }
             };
         }
-
 
         public void StartConduitAction(int buffersize)
         {
